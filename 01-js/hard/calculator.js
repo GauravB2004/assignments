@@ -16,6 +16,70 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.result = 0;
+  }
+
+  add(number) {
+    if (isNaN(number)) {
+      throw new Error('Invalid input. Expected a number.');
+    }
+    this.result += number;
+  }
+
+  subtract(number) {
+    if (isNaN(number)) {
+      throw new Error('Invalid input. Expected a number.');
+    }
+    this.result -= number;
+  }
+
+  multiply(number) {
+    if (isNaN(number)) {
+      throw new Error('Invalid input. Expected a number.');
+    }
+    this.result *= number;
+  }
+
+  divide(number) {
+    if (isNaN(number)) {
+      throw new Error('Invalid input. Expected a number.');
+    }
+    if (number === 0) {
+      throw new Error('Division by zero is not allowed.');
+    }
+    this.result /= number;
+  }
+
+  clear() {
+    this.result = 0;
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  calculate(expression) {
+    const sanitizedExpression = expression.replace(/\s+/g, ''); // Remove all spaces from the expression
+    const isValidInput = /^[0-9\+\-\*\/\.\(\)]+$/.test(sanitizedExpression); // Check if expression contains valid characters
+
+    if (!isValidInput) {
+      throw new Error('Invalid input. Expression contains invalid characters.');
+    }
+
+    // Validate expression for division by zero
+    if (sanitizedExpression.includes('/0')) {
+      throw new Error('Division by zero is not allowed.');
+    }
+
+    // Evaluate the expression and update the result
+    this.result = eval(sanitizedExpression);
+
+    return this.result;
+  }
+}
 
 module.exports = Calculator;
+
+
